@@ -12,7 +12,7 @@ BASE_URL = "https://api.spotify.com/v1/"
 # move this functionality to viewsets:
 
 
-def get_user_token(session_id):
+def get_token(session_id):
     tokens = SpotifyToken.objects.filter(session_id=session_id)
     if tokens.exists():
         return tokens[0]
@@ -22,8 +22,7 @@ def get_user_token(session_id):
 
 def update_or_create_token(session_id, access_token, token_type, expires_in, refresh_token):
     expires_in = timezone.now() + timedelta(seconds=expires_in)
-    #user = User.objects.get(id=user_id)
-    token = get_user_token(session_id)
+    token = get_token(session_id)
 
     if token:
         token.access_token = access_token
@@ -39,7 +38,7 @@ def update_or_create_token(session_id, access_token, token_type, expires_in, ref
 
 
 def is_spotify_authenticated(session_id):
-    token = get_user_token(session_id)
+    token = get_token(session_id)
     if token:
         expiry = token.expires_in
         if expiry <= timezone.now():
@@ -49,7 +48,7 @@ def is_spotify_authenticated(session_id):
 
 
 def refresh_spotify_token(session_id):
-    refresh_token = get_user_token(session_id).refresh_token
+    refresh_token = get_token(session_id).refresh_token
 
     response = post('https://accounts.spotify.com/api/token', data={
         'grant_type': 'refresh_token',
@@ -68,7 +67,7 @@ def refresh_spotify_token(session_id):
 
 
 def execute_spotify_api_request(session_id, endpoint, method='GET', extra_header={}):
-    token = get_user_token(session_id)
+    token = get_token(session_id)
     print("Successfully recieved")
     print({
         "session_id": session_id,
