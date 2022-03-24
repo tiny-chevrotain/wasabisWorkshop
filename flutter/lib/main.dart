@@ -17,6 +17,7 @@ final List<String> images = [
 ];
 var rand = Random();
 
+
 final wasabias_json = [];
 
 List<Wasabia> wasabia_array = wasabias_json
