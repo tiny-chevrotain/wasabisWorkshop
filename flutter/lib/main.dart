@@ -39,13 +39,6 @@ final wasabias_json = [
     'votes': 9999,
     'songs': 9999,
   },
-  {
-    'id': "",
-    'name': "Rainy days",
-    'image': images[rand.nextInt(images.length)],
-    'votes': 9999,
-    'songs': 9999,
-  },
 ];
 
 List<Wasabia> wasabia_array = wasabias_json
