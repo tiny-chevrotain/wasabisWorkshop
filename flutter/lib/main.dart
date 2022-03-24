@@ -17,29 +17,8 @@ final List<String> images = [
 ];
 var rand = Random();
 
-final wasabias_json = [
-  {
-    'id': "",
-    'name': "Jazzy songs",
-    'image': images[rand.nextInt(images.length)],
-    'votes': 9999,
-    'songs': 9999,
-  },
-  {
-    'id': "",
-    'name': "DnD battle music",
-    'image': images[rand.nextInt(images.length)],
-    'votes': 9999,
-    'songs': 9999,
-  },
-  {
-    'id': "",
-    'name': "Songs for a 19th century villain scheming against his enemies",
-    'image': images[rand.nextInt(images.length)],
-    'votes': 9999,
-    'songs': 9999,
-  },
-];
+
+final wasabias_json = [];
 
 List<Wasabia> wasabia_array = wasabias_json
     .map((wasabia) => new Wasabia(
@@ -51,24 +30,6 @@ List<Wasabia> wasabia_array = wasabias_json
         ))
     .toList();
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: new ThemeData(
-        scaffoldBackgroundColor: colour_bckgrnd,
-        brightness: Brightness.dark,
-      ),
-      home: WasabiaListPage(
-        wasabias: wasabia_array,
-      ),
-    );
-  }
-}
+// void main() {
+//   runApp(MyApp());
+// }
