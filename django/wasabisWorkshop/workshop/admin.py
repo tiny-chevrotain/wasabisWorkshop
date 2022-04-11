@@ -5,7 +5,7 @@ from .models import User
 
 @admin.register(User)
 class ArtistAdmin(admin.ModelAdmin):
-    list_display = ['email', 'username']
+    list_display = ['email', 'name']
 
 
 # from .models import User

@@ -8,7 +8,7 @@ from django.urls import reverse
 class UserManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
-    for authentication instead of usernames.
+    for authentication instead of names.
     """
 
     def create_user(self, email, password, **extra_fields):
@@ -44,8 +44,8 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     email = models.EmailField(verbose_name="email", max_length=60, unique=True)
-    username = models.CharField(
-        verbose_name="username", max_length=60)
+    name = models.CharField(
+        verbose_name="name", max_length=60)
     date_joined = models.DateTimeField(
         verbose_name="date joined", auto_now_add=True)
     last_login = models.DateTimeField(verbose_name="last login", auto_now=True)
@@ -87,7 +87,7 @@ class User(AbstractBaseUser):
 #     # )
 
 #     def __str__(self):
-#         return self.username
+#         return self.name
 
     def __str__(self):
         return self.email

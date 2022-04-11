@@ -6,10 +6,10 @@ from django import forms
 class LoginForm(forms.Form):
     '''Form for user login'''
 
-    username = forms.CharField(
-        label='Username',
+    email = forms.CharField(
+        label='email',
         max_length=50,
-        widget=forms.TextInput(attrs={'autocomplete': 'username'})
+        widget=forms.TextInput(attrs={'autocomplete': 'email'})
     )
     password = forms.CharField(
         label='Password',
@@ -24,11 +24,11 @@ class SignupForm(forms.Form):
         assumes each field to be required by default
     '''
 
-    username = forms.CharField(
-        label='Username',
+    name = forms.CharField(
+        label='name',
         widget=forms.TextInput(
             attrs={
-                'autocomplete': 'username',
+                'autocomplete': 'name',
             }
         )
     )

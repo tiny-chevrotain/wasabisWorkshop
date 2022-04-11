@@ -78,7 +78,7 @@ def execute_spotify_api_request(session_id, endpoint, method='GET', extra_header
     })
     headers = {'Content-Type': 'application/json',
                'Authorization': "Bearer " + token.access_token}
-    #headers = headers | extra_header
+    headers = headers | extra_header
 
     match method:
         case 'GET':
