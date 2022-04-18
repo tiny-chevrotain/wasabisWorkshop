@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:myapp/colors.dart';
+import 'package:myapp/global_variables.dart';
 
 class Wasabia {
   Wasabia({

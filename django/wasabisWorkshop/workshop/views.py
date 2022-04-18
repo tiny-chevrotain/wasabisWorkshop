@@ -27,7 +27,31 @@ from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 # Create your views here.
 
 
-@csrf_exempt
+def check_login(request):
+    form = LoginForm()
+    # print(is_logged_in(request))
+    try:
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                user = auth.authenticate(email=email, password=password)
+                if user is not None:
+                    auth.login(request, user)
+                    return True
+                else:
+                    # failed authentication
+                    return Response({'status': 'invalid_credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            else:
+                # invalid form
+                return Response({'status': 'invalid_form'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'status': 'invalid_method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    except NameError:
+        return Response({'status': 'backend_name_error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
 @api_view(('POST',))
 def signup(request):
 
@@ -70,7 +94,6 @@ def signup(request):
         return Response({'status': 'backend_name_error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@csrf_exempt
 @api_view(('POST',))
 def guest_signup(request):
 
@@ -117,12 +140,10 @@ def guest_signup(request):
         return Response({'status': 'backend_name_error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@csrf_exempt
 @api_view(('POST',))
 def login(request):
-
     form = LoginForm()
-
+    # print(is_logged_in(request))
     try:
         if request.method == 'POST':
             form = LoginForm(request.POST)
@@ -146,6 +167,31 @@ def login(request):
 
 
 @api_view(('POST',))
+def is_logged_in(request):
+    form = LoginForm()
+
+    try:
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                email = form.cleaned_data['email']
+                password = form.cleaned_data['password']
+                user = User.objects.get(email=email)
+                if user is not None:
+                    return Response({'status': 'logged_in'}, status=status.HTTP_200_OK)
+                else:
+                    # failed authentication
+                    return Response({'status': 'invalid_credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            else:
+                # invalid form
+                return Response({'status': 'invalid_form'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'status': 'invalid_method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    except NameError:
+        return Response({'status': 'backend_name_error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(('POST',))
 def logout(request):
     auth.logout(request)
     return Response({'status': 'logged_out'}, status=status.HTTP_200_OK)
@@ -153,18 +199,22 @@ def logout(request):
 
 class AuthURL(APIView):
     def get(self, request, format=None):
-        print("We are authorising, nothing fancy and no tokens set")
-        scopes = 'user-library-modify user-library-read app-remote-control playlist-modify-public'
+        login_response = check_login(request)
+        if login_response == True:
+            print("We are authorising, nothing fancy and no tokens set")
+            scopes = 'user-library-modify user-library-read app-remote-control playlist-modify-public'
 
-        url = Request('GET', 'https://accounts.spotify.com/authorize', params={
-            'scope': scopes,
-            'response_type': 'code',
-            'redirect_uri': REDIRECT_URI,
-            'client_id': CLIENT_ID,
-        }).prepare().url
-        print("Successfully achieved an authorisation response")
+            url = Request('GET', 'https://accounts.spotify.com/authorize', params={
+                'scope': scopes,
+                'response_type': 'code',
+                'redirect_uri': REDIRECT_URI,
+                'client_id': CLIENT_ID,
+            }).prepare().url
+            print("Successfully achieved an authorisation response")
 
-        return Response({'url': url}, status=status.HTTP_200_OK)
+            return Response({'url': url}, status=status.HTTP_200_OK)
+        else:
+            return login_response
 
 
 def index(request):

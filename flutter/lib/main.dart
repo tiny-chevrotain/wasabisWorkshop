@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/colors.dart';
-import 'package:myapp/discover_page.dart';
+import 'package:myapp/global_variables.dart';
+import 'package:myapp/login_page.dart';
+import 'package:myapp/url_strategy.dart';
+import 'package:myapp/wasabia_list_page.dart';
 
 void main() {
+  usePathUrlStrategy();
   runApp(MyApp());
 }
 
@@ -17,7 +20,11 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: colour_bckgrnd,
         brightness: Brightness.dark,
       ),
-      home: DiscoverPage(),
+      routes: {
+        // 'login': (context) => LoginSignupPage(),
+        '/discover': (context) => LoadDiscoverPage(),
+      },
+      home: LoadLoginSignupPage(),
     );
   }
 }

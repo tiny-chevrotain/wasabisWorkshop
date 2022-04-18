@@ -28,5 +28,5 @@ urlpatterns = [
          name='is_authenticated'),
     path('test-spotify-api/', views.SpotifyTest.as_view(),
          name='test_spotify_api'),
-    path('redirect/', views.spotify_callback, name='redirect')
+    path('redirect/', views.spotify_callback, name='redirect'),
 ]
