@@ -15,54 +15,6 @@ import 'package:image_network/image_network.dart';
 //   final int votes;
 //   final int user_vote;
 
-final songs_json = [
-  {
-    'id': "",
-    'name': "Who Am I",
-    'artist': "Michael Wyckoff",
-    'votes': 9999,
-    'user_vote': 0,
-  },
-  {
-    'id': "",
-    'name': "Rusty Cage",
-    'artist': "Soundgarden",
-    'votes': 9999,
-    'user_vote': 0,
-  },
-  {
-    'id': "",
-    'name': "tadpoles lullaby",
-    'artist': "galen tipton",
-    'votes': 9999,
-    'user_vote': 0,
-  },
-  {
-    'id': "",
-    'name': "Evil Fantasy",
-    'artist': "Freddie Dredd",
-    'votes': 9999,
-    'user_vote': 0,
-  },
-  {
-    'id': "",
-    'name': "Turn out the Lamplight",
-    'artist': "George Benson",
-    'votes': 9999,
-    'user_vote': 0,
-  },
-];
-
-List<Song> songs = songs_json
-    .map((song) => new Song(
-          id: song['id'] as String,
-          name: song['name'] as String,
-          artist: song['artist'] as String,
-          votes: song['votes'] as int,
-          user_vote: song['user_vote'] as int,
-        ))
-    .toList();
-
 class WasabiaListPage extends StatelessWidget {
   const WasabiaListPage({
     Key? key,
@@ -224,6 +176,7 @@ class LoadDiscoverPage extends StatelessWidget {
                 Text("Ayyo the data is null that aint meant to happen lmaooo."),
           );
         }
+        print("This is only happening once, right?");
         return WasabiaListPage(
           wasabias: snapshot.data!,
         );

@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.urls import reverse
-
-# Create your models here.
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
 
 
 class UserManager(BaseUserManager):
@@ -53,6 +55,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=True)
+    temp_code = models.CharField(max_length=512, default="")
 
     USERNAME_FIELD = 'email'
 
@@ -100,9 +103,16 @@ class User(AbstractBaseUser):
 
 
 class SpotifyToken(models.Model):
-    session_id = models.CharField(max_length=50, unique=True)
+    user_auth_token = models.CharField(max_length=50, unique=True)
     created_at = models.DateField(auto_now_add=True)
     refresh_token = models.CharField(max_length=150)
     access_token = models.CharField(max_length=150)
     expires_in = models.DateTimeField()
     token_type = models.CharField(max_length=50)
+
+
+# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+# def create_auth_token(sender, instance=None, created=False, **kwargs):
+#     '''For automated token generation, runs after generating a new user'''
+#     if created:
+#         Token.objects.create(user=instance)

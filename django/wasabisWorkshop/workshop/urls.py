@@ -19,14 +19,19 @@ from django.urls import include, path
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('secret-signup/', views.guest_signup, name='secret_login'),
+
+    # user authentication:
     path('login/', views.login, name='login'),
+    path('token-login/', views.token_login, name='token_login'),
     path('signup/', views.signup, name='signup'),
-    path('logout/', views.logout, name='logout'),
-    path('get-auth-url/', views.AuthURL.as_view(), name='get_auth_url'),
+    path('secret-signup/', views.guest_signup, name='secret_login'),
+
+    # other stuff:
+    # path('get-auth-url/', views.AuthURL.as_view(), name='get_auth_url'),
     path('is-authenticated/', views.IsAuthenticated.as_view(),
          name='is_authenticated'),
     path('test-spotify-api/', views.SpotifyTest.as_view(),
          name='test_spotify_api'),
     path('redirect/', views.spotify_callback, name='redirect'),
+    path('get-token/', views.get_token, name='get_token'),
 ]

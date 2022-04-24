@@ -13,7 +13,7 @@ class LoadLoginSignupPage extends StatelessWidget {
     return FutureBuilder(
       future: auto_login(context),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.hasData && snapshot.data == false) {
+        if (snapshot.hasData) {
           return LoginSignupPage();
         }
         return LoadingPage();

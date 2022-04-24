@@ -1,35 +1,28 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+//todo: restructure class!!
 class Credentials {
   final _storage = new FlutterSecureStorage();
-  String? _stored_email;
-  String? _stored_password;
+  String? _stored_token;
 
-  Future<Map<String, String>?> get() async {
-    _stored_email = await _storage.read(key: 'email');
-    _stored_password = await _storage.read(key: 'password');
-
-    if ((_stored_email != null) && (_stored_password != null)) {
-      return {
-        'email': _stored_email!,
-        'password': _stored_password!,
-      };
-    }
-    await remove();
-    return null;
+  Future<String?> get() async {
+    _stored_token = await _storage.read(key: 'token');
+    return _convert(_stored_token);
   }
 
   remove() async {
     await _storage.deleteAll();
   }
 
-  update(String email, String password) async {
-    await _storage.write(key: 'email', value: email);
-    await _storage.write(key: 'password', value: password);
+  update(String token) async {
+    await _storage.write(key: 'token', value: token);
   }
 
-  Future<String?> get_email() async {
-    _stored_email = await _storage.read(key: 'email');
-    return _stored_email;
+  Future<String?> get_local() async {
+    return _convert(_stored_token);
+  }
+
+  String? _convert(String? token) {
+    return (token == null) ? null : "token $token";
   }
 }

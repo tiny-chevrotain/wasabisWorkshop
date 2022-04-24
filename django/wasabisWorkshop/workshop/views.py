@@ -1,3 +1,5 @@
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
@@ -19,42 +21,20 @@ from django.core.files.storage import default_storage
 import random
 from django.views.decorators.csrf import csrf_exempt
 
-from .utils import execute_spotify_api_request, is_spotify_authenticated, update_or_create_token
+from .utils import authenticate_user, execute_spotify_api_request, is_spotify_authenticated, update_or_create_token
 
-from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.decorators import api_view, renderer_classes, authentication_classes, permission_classes
 from rest_framework.renderers import JSONRenderer, TemplateHTMLRenderer
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
 # Create your views here.
-
-
-def check_login(request):
-    form = LoginForm()
-    # print(is_logged_in(request))
-    try:
-        if request.method == 'POST':
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                email = form.cleaned_data['email']
-                password = form.cleaned_data['password']
-                user = auth.authenticate(email=email, password=password)
-                if user is not None:
-                    auth.login(request, user)
-                    return True
-                else:
-                    # failed authentication
-                    return Response({'status': 'invalid_credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-            else:
-                # invalid form
-                return Response({'status': 'invalid_form'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'status': 'invalid_method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-    except NameError:
-        return Response({'status': 'backend_name_error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+# https://stackoverflow.com/questions/39647123/salt-in-pbkdf2-python#:~:text=The%20Passlib%20Password%20Hash%20interface%20either%20lets%20you%20set%20the%20salt%20size%2C%20or%20the%20salt%20value%20itself.%20From%20the%20documentation%20on%20pbkdf2_sha256%3A
 
 
 @api_view(('POST',))
 def signup(request):
-
     form = SignupForm()
     try:
         if request.method == 'POST':
@@ -76,14 +56,7 @@ def signup(request):
                     new_user.save()
 
                     # authenticate user
-                    # establishes a session, will add user object as attribute
-                    # on request objects, for all subsequent requests until logout
-                    user = auth.authenticate(email=email, password=password)
-                    if user is not None:
-                        auth.login(request, user)
-                        return Response({'status': 'logged_in'}, status=status.HTTP_200_OK)
-                    else:
-                        return Response({'status': 'user_somehow_none??'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    return authenticate_user(email=email, password=password, signup=True)
                 else:
                     return Response({'status': 'user_already_exists'}, status=status.HTTP_409_CONFLICT)
             else:
@@ -124,14 +97,7 @@ def guest_signup(request):
                 new_user.save()
 
                 # authenticate user
-                # establishes a session, will add user object as attribute
-                # on request objects, for all subsequent requests until logout
-                user = auth.authenticate(email=email, password=password)
-                if user is not None:
-                    auth.login(request, user)
-                    return Response({'status': 'logged_in'}, status=status.HTTP_200_OK)
-                else:
-                    return Response({'status': 'user_somehow_none??'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return authenticate_user(email=email, password=password, signup=True)
             else:
                 return Response({'status': 'user_already_exists'}, status=status.HTTP_409_CONFLICT)
         else:
@@ -143,20 +109,13 @@ def guest_signup(request):
 @api_view(('POST',))
 def login(request):
     form = LoginForm()
-    # print(is_logged_in(request))
     try:
         if request.method == 'POST':
             form = LoginForm(request.POST)
             if form.is_valid():
                 email = form.cleaned_data['email']
                 password = form.cleaned_data['password']
-                user = auth.authenticate(email=email, password=password)
-                if user is not None:
-                    auth.login(request, user)
-                    return Response({'status': 'logged_in'}, status=status.HTTP_200_OK)
-                else:
-                    # failed authentication
-                    return Response({'status': 'invalid_credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+                return authenticate_user(email=email, password=password)
             else:
                 # invalid form
                 return Response({'status': 'invalid_form'}, status=status.HTTP_400_BAD_REQUEST)
@@ -167,54 +126,10 @@ def login(request):
 
 
 @api_view(('POST',))
-def is_logged_in(request):
-    form = LoginForm()
-
-    try:
-        if request.method == 'POST':
-            form = LoginForm(request.POST)
-            if form.is_valid():
-                email = form.cleaned_data['email']
-                password = form.cleaned_data['password']
-                user = User.objects.get(email=email)
-                if user is not None:
-                    return Response({'status': 'logged_in'}, status=status.HTTP_200_OK)
-                else:
-                    # failed authentication
-                    return Response({'status': 'invalid_credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-            else:
-                # invalid form
-                return Response({'status': 'invalid_form'}, status=status.HTTP_400_BAD_REQUEST)
-        else:
-            return Response({'status': 'invalid_method'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
-    except NameError:
-        return Response({'status': 'backend_name_error'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-
-@api_view(('POST',))
-def logout(request):
-    auth.logout(request)
-    return Response({'status': 'logged_out'}, status=status.HTTP_200_OK)
-
-
-class AuthURL(APIView):
-    def get(self, request, format=None):
-        login_response = check_login(request)
-        if login_response == True:
-            print("We are authorising, nothing fancy and no tokens set")
-            scopes = 'user-library-modify user-library-read app-remote-control playlist-modify-public'
-
-            url = Request('GET', 'https://accounts.spotify.com/authorize', params={
-                'scope': scopes,
-                'response_type': 'code',
-                'redirect_uri': REDIRECT_URI,
-                'client_id': CLIENT_ID,
-            }).prepare().url
-            print("Successfully achieved an authorisation response")
-
-            return Response({'url': url}, status=status.HTTP_200_OK)
-        else:
-            return login_response
+@authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
+def token_login(request):
+    return Response({'status': 'logged_in'}, status=status.HTTP_200_OK)
 
 
 def index(request):
@@ -231,40 +146,45 @@ class SpotifyTest(APIView):
 
 
 def spotify_callback(request, format=None):
+    print(request.session.session_key)
     code = request.GET.get('code')
-    error = request.GET.get('error')
 
     print("We have been directly redirected, from here we're going to gather information and I will display this all")
 
-    response = post('https://accounts.spotify.com/api/token', data={
-        'grant_type': 'authorization_code',
-        'code': code,
-        'redirect_uri': REDIRECT_URI,
-        'client_id': CLIENT_ID,
-        'client_secret': CLIENT_SECRET,
-    }).json()
+    return redirect(f'http://localhost:56545/spotify-auth?code={code}', permanent=True)
 
-    access_token = response.get('access_token')
-    token_type = response.get('token_type')
-    refresh_token = response.get('refresh_token')
-    expires_in = response.get('expires_in')
-    error = response.get('error')
 
-    print({
-        "access_token": access_token,
-        "token_type": token_type,
-        "refresh_token": refresh_token,
-        "expires_in": expires_in,
-        "error": error,
-    })
+@api_view(('POST',))
+@authentication_classes((TokenAuthentication,))
+@permission_classes((IsAuthenticated,))
+def spotify_create_token(request)
+# response = post('https://accounts.spotify.com/api/token', data={
+#     'grant_type': 'authorization_code',
+#     'code': code,
+#     'redirect_uri': REDIRECT_URI,
+#     'client_id': CLIENT_ID,
+#     'client_secret': CLIENT_SECRET,
+# }).json()
 
-    if not request.session.exists(request.session.session_key):
-        request.session.create()
+# access_token = response.get('access_token')
+# token_type = response.get('token_type')
+# refresh_token = response.get('refresh_token')
+# expires_in = response.get('expires_in')
+# error = response.get('error')
 
-    update_or_create_token(
-        request.session.session_key, access_token, token_type, expires_in, refresh_token)
+# print({
+#     "access_token": access_token,
+#     "token_type": token_type,
+#     "refresh_token": refresh_token,
+#     "expires_in": expires_in,
+#     "error": error,
+# })
 
-    return redirect('test_spotify_api')
+# if not request.session.exists(request.session.session_key):
+#     request.session.create()
+
+# update_or_create_token(
+#     request.session.session_key, access_token, token_type, expires_in, refresh_token)
 
 
 class IsAuthenticated(APIView):
@@ -272,3 +192,8 @@ class IsAuthenticated(APIView):
         is_authenticated = is_spotify_authenticated(
             self.request.session.session_key)
         return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
+
+
+# # hopefully this runs at compile time?
+# for user in User.objects.all():
+#     Token.objects.get_or_create(user=user)
