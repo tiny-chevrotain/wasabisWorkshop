@@ -8,7 +8,8 @@
             "name": "flutter",
             "cwd": "flutter",
             "request": "launch",
-            "type": "dart"
+            "type": "dart",
+            "args": ["--web-port", "65332"]
         },
         {
             "name": "flutter (profile mode)",
@@ -22,7 +23,7 @@
             "cwd": "flutter",
             "request": "launch",
             "type": "dart",
-            "args": ["--web-renderer", "html"]
+            "args": ["--web-port", "65332", "--web-renderer", "html"]
         }
     ]
 }

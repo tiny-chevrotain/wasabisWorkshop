@@ -111,7 +111,7 @@ def authenticate_user(email="", password="", signup=False):
             'spotify_auth': 'true',
         }
         if not is_spotify_authenticated(token):
-            url = get_auth_url()
+            url = get_spotify_auth_url()
             body['url'] = url
             body['spotify_auth'] = 'false'
         return Response(body, status=status.HTTP_200_OK)
@@ -123,7 +123,7 @@ def authenticate_user(email="", password="", signup=False):
         return Response({'status': 'invalid_credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-def get_auth_url():
+def get_spotify_auth_url():
     print("We are authorising, nothing fancy and no tokens set")
     scopes = 'user-library-modify user-library-read app-remote-control playlist-modify-public'
     return Request('GET', 'https://accounts.spotify.com/authorize', params={

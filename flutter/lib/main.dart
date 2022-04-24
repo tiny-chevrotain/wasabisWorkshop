@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoadLoginSignupPage(),
         '/discover': (context) => LoadDiscoverPage(),
-        // '/spotify-auth': (context) => LoadSpotifyAuthPage(),
+        '/': (context) => HomePage(),
       },
       onGenerateRoute: (settings) {
         // If you push the PassArguments route
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
         assert(false, 'Need to implement ${settings.name}');
         return null;
       },
-      home: HomePage(),
+      // home: HomePage(),
     );
   }
 }

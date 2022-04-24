@@ -79,7 +79,19 @@ Future<List<Wasabia>> getDiscover(String userid) async {
 }
 
 Future<bool> authenticate_code(String code) async {
-  print(code);
-  await credentials.get();
-  return true;
+  String page = 'workshop/spotify-create-token/';
+  var headers = await get_token_header();
+  if (headers != null) {
+    var response = await client.post(
+      Uri.http(root_url, page),
+      headers: headers,
+      body: {'code': code},
+    );
+    var decodedResponse = jsonDecode(utf8.decode(response.bodyBytes)) as Map;
+    if (response.statusCode == 200) {
+      print(decodedResponse);
+      return true;
+    }
+  }
+  return false;
 }

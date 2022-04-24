@@ -27,11 +27,19 @@ urlpatterns = [
     path('secret-signup/', views.guest_signup, name='secret_login'),
 
     # other stuff:
-    # path('get-auth-url/', views.AuthURL.as_view(), name='get_auth_url'),
-    path('is-authenticated/', views.IsAuthenticated.as_view(),
-         name='is_authenticated'),
-    path('test-spotify-api/', views.SpotifyTest.as_view(),
-         name='test_spotify_api'),
-    path('redirect/', views.spotify_callback, name='redirect'),
-    path('get-token/', views.get_token, name='get_token'),
+    path(
+        'is-authenticated/',
+        views.IsAuthenticated.as_view(),
+        name='is_authenticated',
+    ),
+    path(
+        'test-spotify-api/',
+        views.SpotifyTest.as_view(),
+        name='test_spotify_api',
+    ),
+    path(
+        'spotify-create-token/',
+        views.spotify_create_token,
+        name='spotify_create_token',
+    ),
 ]

@@ -145,46 +145,42 @@ class SpotifyTest(APIView):
             data=response)
 
 
-def spotify_callback(request, format=None):
-    print(request.session.session_key)
-    code = request.GET.get('code')
-
-    print("We have been directly redirected, from here we're going to gather information and I will display this all")
-
-    return redirect(f'http://localhost:56545/spotify-auth?code={code}', permanent=True)
-
-
 @api_view(('POST',))
 @authentication_classes((TokenAuthentication,))
 @permission_classes((IsAuthenticated,))
-def spotify_create_token(request)
-# response = post('https://accounts.spotify.com/api/token', data={
-#     'grant_type': 'authorization_code',
-#     'code': code,
-#     'redirect_uri': REDIRECT_URI,
-#     'client_id': CLIENT_ID,
-#     'client_secret': CLIENT_SECRET,
-# }).json()
+def spotify_create_token(request):
+    user_token = request.headers['Authorization'][6:]
+    spotify_code = request.POST['code']
 
-# access_token = response.get('access_token')
-# token_type = response.get('token_type')
-# refresh_token = response.get('refresh_token')
-# expires_in = response.get('expires_in')
-# error = response.get('error')
+    response = post('https://accounts.spotify.com/api/token', data={
+        'grant_type': 'authorization_code',
+        'code': spotify_code,
+        'redirect_uri': REDIRECT_URI,
+        'client_id': CLIENT_ID,
+        'client_secret': CLIENT_SECRET,
+    }).json()
 
-# print({
-#     "access_token": access_token,
-#     "token_type": token_type,
-#     "refresh_token": refresh_token,
-#     "expires_in": expires_in,
-#     "error": error,
-# })
+    access_token = response.get('access_token')
+    token_type = response.get('token_type')
+    refresh_token = response.get('refresh_token')
+    expires_in = response.get('expires_in')
+    error = response.get('error')
 
-# if not request.session.exists(request.session.session_key):
-#     request.session.create()
+    print({
+        "access_token": access_token,
+        "token_type": token_type,
+        "refresh_token": refresh_token,
+        "expires_in": expires_in,
+        "error": error,
+    })
 
-# update_or_create_token(
-#     request.session.session_key, access_token, token_type, expires_in, refresh_token)
+    if not request.session.exists(request.session.session_key):
+        request.session.create()
+
+    update_or_create_token(
+        user_token, access_token, token_type, expires_in, refresh_token)
+
+    return Response({'status': 'spotify_athenticated'}, status=status.HTTP_200_OK)
 
 
 class IsAuthenticated(APIView):
