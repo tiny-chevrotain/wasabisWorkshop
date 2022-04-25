@@ -1,3 +1,4 @@
+from copy import error
 from datetime import timedelta
 from django.utils import timezone
 from requests import post, put, get
@@ -68,29 +69,35 @@ def refresh_spotify_token(user_auth_token):
     access_token = response.get('access_token')
     token_type = response.get('token_type')
     expires_in = response.get('expires_in')
-    refresh_token = response.get('refresh_token')
 
     update_or_create_token(
         user_auth_token, access_token, token_type, expires_in, refresh_token)
 
 
-def execute_spotify_api_request(user_auth_token, endpoint, method='GET', extra_header={}):
+def execute_spotify_api_request(user_auth_token, endpoint, method='GET', extra_header={}, queries={}):
     token = get_token(user_auth_token)
-    print("Successfully recieved")
     print({
         "user_auth_token": user_auth_token,
         "endpoint": endpoint,
         "method": method,
         "token": token.access_token,
-        "URL": BASE_URL + endpoint,
+        "URL": BASE_URL + endpoint + organise_queries(queries),
     })
-    headers = {'Content-Type': 'application/json',
-               'Authorization': "Bearer " + token.access_token}
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + token.access_token
+    }
+    print(headers)
     headers = headers | extra_header
 
     match method:
         case 'GET':
-            response = get(url=BASE_URL + endpoint, headers=headers)
+            response = get(BASE_URL + endpoint, headers=headers)
+            print("Request info:")
+            print(response.request.url)
+            print(response.request.body)
+            print(response.request.headers)
         case 'POST':
             response = post(BASE_URL + endpoint, headers=headers)
         case 'PUT':
@@ -132,3 +139,52 @@ def get_spotify_auth_url():
         'redirect_uri': REDIRECT_URI,
         'client_id': CLIENT_ID,
     }).prepare().url
+
+
+def organise_queries(queries):
+    queries_string = ''
+    first = True
+    for query, value in queries.items():
+        if first:
+            queries_string += '?'
+            first = False
+        else:
+            queries_string += '&'
+        value = sort_array(value)
+        queries_string += f'{query}={value}'
+    return queries_string
+
+
+def sort_dict(value, first=False):
+    if isinstance(value, dict):
+        keys = []
+        values = []
+        for key, value in value.items():
+            keys.append(key)
+            values.append(value)
+        if (len(keys) > 1 or len(values) > 1):
+            raise NameError(
+                'Using the "sort_array" function incorrectly- structure requires one key/value pair- no more keys/values!!'
+            )
+        else:
+            dict_key = keys[0]
+            dict_values = values[0]
+            value = dict_key
+            if isinstance(dict_values, list):
+                value += f'({sort_array(dict_values)})'
+            else:
+                value += f".{sort_dict(dict_values)}"
+    return value
+
+
+def sort_array(value):
+    value_first = True
+    value_array = value
+    value = ''
+    for item in value_array:
+        if value_first:
+            value_first = False
+        else:
+            value += ','
+        value += sort_dict(item)
+    return value

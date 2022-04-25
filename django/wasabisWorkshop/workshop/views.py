@@ -3,6 +3,8 @@ from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
+from .test_personalisation import test_spotify_functionality
+
 from .models import User
 
 from .forms import LoginForm, SignupForm
@@ -32,6 +34,9 @@ from rest_framework.authentication import TokenAuthentication
 # Create your views here.
 # https://stackoverflow.com/questions/39647123/salt-in-pbkdf2-python#:~:text=The%20Passlib%20Password%20Hash%20interface%20either%20lets%20you%20set%20the%20salt%20size%2C%20or%20the%20salt%20value%20itself.%20From%20the%20documentation%20on%20pbkdf2_sha256%3A
 
+
+# https://django-rest-framework-simplejwt.readthedocs.io/en/latest/creating_tokens_manually.html
+# https://www.remoteinning.com/blog/how-to-use-jwt-authentication-with-django-rest-framework
 
 @api_view(('POST',))
 def signup(request):
@@ -190,6 +195,17 @@ class IsAuthenticated(APIView):
         return Response({'status': is_authenticated}, status=status.HTTP_200_OK)
 
 
+@csrf_exempt
+@api_view(('GET',))
+def test(request):
+    response = test_spotify_functionality()
+    # new_items = []
+    # for item in response['items']:
+    #     item['track'].pop('available_markets', None)
+    #     item['track']['album'].pop('available_markets', None)
+    #     new_items.append(item)
+    # response.update({'items': new_items})
+    return Response(response, status=status.HTTP_200_OK)
 # # hopefully this runs at compile time?
 # for user in User.objects.all():
 #     Token.objects.get_or_create(user=user)
