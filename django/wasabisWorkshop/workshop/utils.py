@@ -76,28 +76,25 @@ def refresh_spotify_token(user_auth_token):
 
 def execute_spotify_api_request(user_auth_token, endpoint, method='GET', extra_header={}, queries={}):
     token = get_token(user_auth_token)
-    print({
-        "user_auth_token": user_auth_token,
-        "endpoint": endpoint,
-        "method": method,
-        "token": token.access_token,
-        "URL": BASE_URL + endpoint + organise_queries(queries),
-    })
+    # print({
+    #     "user_auth_token": user_auth_token,
+    #     "endpoint": endpoint,
+    #     "method": method,
+    #     "token": token.access_token,
+    #     "URL": BASE_URL + endpoint,
+    # })
     headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Authorization': "Bearer " + token.access_token
     }
-    print(headers)
     headers = headers | extra_header
 
     match method:
         case 'GET':
-            response = get(BASE_URL + endpoint, headers=headers)
-            print("Request info:")
+            response = get(BASE_URL + endpoint,
+                           headers=headers, params=organise_queries(queries))
             print(response.request.url)
-            print(response.request.body)
-            print(response.request.headers)
         case 'POST':
             response = post(BASE_URL + endpoint, headers=headers)
         case 'PUT':
@@ -142,20 +139,14 @@ def get_spotify_auth_url():
 
 
 def organise_queries(queries):
-    queries_string = ''
-    first = True
     for query, value in queries.items():
-        if first:
-            queries_string += '?'
-            first = False
-        else:
-            queries_string += '&'
+        value = sort_dict(value)
         value = sort_array(value)
-        queries_string += f'{query}={value}'
-    return queries_string
+        queries.update({query: value})
+    return queries
 
 
-def sort_dict(value, first=False):
+def sort_dict(value):
     if isinstance(value, dict):
         keys = []
         values = []
@@ -178,13 +169,14 @@ def sort_dict(value, first=False):
 
 
 def sort_array(value):
-    value_first = True
-    value_array = value
-    value = ''
-    for item in value_array:
-        if value_first:
-            value_first = False
-        else:
-            value += ','
-        value += sort_dict(item)
+    if isinstance(value, list):
+        value_first = True
+        value_array = value
+        value = ''
+        for item in value_array:
+            if value_first:
+                value_first = False
+            else:
+                value += ','
+            value += sort_dict(item)
     return value
