@@ -1,5 +1,9 @@
-from .test_utils import setup_spotify
+from .personalisation_utils import apply_genres, get_artist_info, get_features, get_playlist_songs, separate_artists
+from .test_utils import get_key, group_input, setup_spotify
 from .utils import execute_spotify_api_request, organise_queries
+import json
+
+# https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge
 
 
 def test_spotify_functionality():
@@ -13,51 +17,21 @@ def test_spotify_functionality():
             'limit': '20',
         },
     )
-    playlist_id = playlists_response['items'][0]['uri'][17:]
-    count = 0
-    finished = False
-    all_songs_dict = {
-        'items': []
+
+    user_playlist = generate_playlist_features(
+        playlists_response['items'][0]['uri'][17:], token)
+    wasabia = generate_playlist_features(
+        playlists_response['items'][1]['uri'][17:], token)
+
+    return {
+        'user_playlist': user_playlist,
+        'wasabia': wasabia,
     }
-    while (count < 30 or finished == False):
-        playlist_response = execute_spotify_api_request(
-            user_auth_token=token,
-            endpoint=f'playlists/{playlist_id}/tracks',
-            method='GET',
-            queries={
-                'offset': count*100,
-                'limit': 100,
-                'fields': [
-                    'href',
-                    'next',
-                    'total',
-                    {
-                        'items': [
-                            'is_local',
-                            {
-                                'track': [
-                                    'id',
-                                    'name',
-                                    {
-                                        'artists': 'name'
-                                    },
-                                    {
-                                        'album': [
-                                            'name',
-                                            'images',
-                                        ]
-                                    },
-                                ]
-                            },
-                        ],
-                    },
-                ],
-            },
-        )
-        count += 1
-        print(count)
-        all_songs_dict['items'] += playlist_response['items']
-        if (playlist_response['next'] == None):
-            finished = True
-    return all_songs_dict
-    # print("Got here?")
+
+
+def generate_playlist_features(playlist_id, token):
+    all_songs = get_playlist_songs(playlist_id, token)
+    all_songs, all_artists = separate_artists(all_songs)
+    all_artist_genres = get_artist_info(all_artists, token)
+    all_songs = apply_genres(all_songs, all_artist_genres)
+    return get_features(all_songs, token)

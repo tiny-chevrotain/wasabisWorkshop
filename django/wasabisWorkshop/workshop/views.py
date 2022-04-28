@@ -1,3 +1,4 @@
+import json
 from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.http import HttpResponse
@@ -199,6 +200,10 @@ class IsAuthenticated(APIView):
 @api_view(('GET',))
 def test(request):
     response = test_spotify_functionality()
+
+    # with open('personalise_test.json', 'w') as f:
+    #     json.dump(response, f)
+
     # new_items = []
     # for item in response['items']:
     #     item['track'].pop('available_markets', None)

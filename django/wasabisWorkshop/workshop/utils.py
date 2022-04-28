@@ -94,7 +94,7 @@ def execute_spotify_api_request(user_auth_token, endpoint, method='GET', extra_h
         case 'GET':
             response = get(BASE_URL + endpoint,
                            headers=headers, params=organise_queries(queries))
-            print(response.request.url)
+            # print(response.request.url)
         case 'POST':
             response = post(BASE_URL + endpoint, headers=headers)
         case 'PUT':
@@ -169,7 +169,7 @@ def sort_dict(value):
 
 
 def sort_array(value):
-    if isinstance(value, list):
+    if isinstance(value, list) or isinstance(value, tuple):
         value_first = True
         value_array = value
         value = ''
