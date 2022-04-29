@@ -1,7 +1,8 @@
+import datetime
 from .test_utils import get_key, group_input, setup_spotify
 from .utils import execute_spotify_api_request
 import json
-
+from collections import Counter
 import pandas as pd
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -43,10 +44,92 @@ def test_spotify_functionality():
     # # a dictionary
     # all_song_features_dict = json.load(f)
 
+# ----------- for debugging only:
+
+
+def get_wasabia_ids(playlist_id, token):
+    count = 0
+    finished = False
+    all_songs = []
+    while (finished == False):
+        playlist_response = execute_spotify_api_request(
+            user_auth_token=token,
+            endpoint=f'playlists/{playlist_id}/tracks',
+            method='GET',
+            queries={
+                'offset': count*100,
+                'limit': 100,
+                'fields': [
+                    'next',
+                    {
+                        'items': [
+                            'is_local',
+                            {
+                                'track': [
+                                    'id',
+                                ]
+                            },
+                        ],
+                    },
+                ],
+            },
+        )
+        count += 1
+        all_songs += playlist_response['items']
+        if (playlist_response['next'] == None):
+            finished = True
+    song_ids = []
+    for song in all_songs:
+        song_ids.append(song['track']['id'])
+    return song_ids
+
 # ----------- grab data:
 
 
-def get_all_playlists(playlists_response, token):
+def format_tracks(bad_format_tracks):
+    current_time = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
+    return [
+        {
+            'is_local': False,
+            'added_at': current_time,
+            'track': {
+                'id': bad_track['id'],
+                'name': bad_track['name'],
+                'artists': [
+                    {
+                        'id': artist['id'],
+                        'name': artist['name'],
+                    }
+                    for artist in bad_track['artists']
+                ],
+                'album': {
+                    'name': bad_track['album']['name'],
+                    'images': bad_track['album']['images'],
+                    'release_date': bad_track['album']['release_date'],
+                },
+            }
+        }
+        for bad_track in bad_format_tracks
+    ]
+
+
+def get_tracks(track_ids, token):
+    all_tracks = []
+    all_ids_grouped = group_input(track_ids, 50)
+    for id_group in all_ids_grouped:
+        playlist_response = execute_spotify_api_request(
+            user_auth_token=token,
+            endpoint=f'tracks',
+            method='GET',
+            queries={
+                'ids': id_group
+            }
+        )
+        all_tracks += playlist_response['tracks']
+    return format_tracks(all_tracks)
+
+
+def get_all_playlists(token):
     count = 0
     finished = False
     all_playlists = []
@@ -56,7 +139,7 @@ def get_all_playlists(playlists_response, token):
             endpoint='me/playlists',
             method='GET',
             queries={
-                'offset': '0',
+                'offset': count*50,
                 'limit': '50',
             },
         )
@@ -64,9 +147,10 @@ def get_all_playlists(playlists_response, token):
         all_playlists += playlists_response['items']
         if (playlists_response['next'] == None):
             finished = True
-    playlist_uris = []
+    playlist_ids = []
     for playlist in all_playlists:
-        playlist_uris.append(playlist['uri'][17:])
+        playlist_ids.append(playlist['uri'][17:])
+    return playlist_ids
 
 
 def get_playlist_songs(playlist_id, token):
@@ -120,25 +204,97 @@ def get_playlist_songs(playlist_id, token):
     return all_songs
 
 
+def format_songs(bad_format_songs):
+    return [
+        {
+            'is_local': False,
+            'added_at': bad_song['added_at'],
+            'track': {
+                'id': bad_song['track']['id'],
+                'name': bad_song['track']['name'],
+                'artists': [
+                    {
+                        'id': artist['id'],
+                        'name': artist['name'],
+                    }
+                    for artist in bad_song['track']['artists']
+                ],
+                'album': {
+                    'name': bad_song['track']['album']['name'],
+                    'images': bad_song['track']['album']['images'],
+                    'release_date': bad_song['track']['album']['release_date'],
+                },
+            }
+        }
+        for bad_song in bad_format_songs
+    ]
+
+
+def get_saved_songs(token):
+    count = 0
+    finished = False
+    all_songs = []
+    while (finished == False):
+        song_response = execute_spotify_api_request(
+            user_auth_token=token,
+            endpoint='me/tracks',
+            method='GET',
+            queries={
+                'offset': count*50,
+                'limit': '50',
+            },
+        )
+        count += 1
+        all_songs += format_songs(song_response['items'])
+        if (song_response['next'] == None):
+            finished = True
+    return all_songs
+
+
+def get_library_songs(token):
+    playlist_ids = get_all_playlists(token)
+    all_songs = []
+    for playlist_id in playlist_ids:
+        all_songs += get_playlist_songs(playlist_id, token)
+    all_songs += get_saved_songs(token)
+    return all_songs
+
+
+def remove_duplicate_songs(all_songs):
+    unique_song_ids = []
+    unique_songs = []
+    for song in all_songs:
+        current_id = song['track']['id']
+        if current_id not in unique_song_ids:
+            unique_song_ids.append(current_id)
+            unique_songs.append(song)
+    return unique_songs
+
+
+def remove_local_songs(all_songs):
+    online_songs = []
+    for song in all_songs:
+        if not song['is_local']:
+            online_songs.append(song)
+    return online_songs
+
+
 def separate_artists(all_songs):
     '''
         Removes local songs and creates all_artists array
     '''
-    online_songs = []
     all_artists = []
     for song in all_songs:
-        if not song['is_local']:
-            online_songs.append(song)
-            for artist in song['track']['artists']:
-                same_artists = filter(
-                    lambda existing_artist:
-                    existing_artist['id'] == artist['id'],
-                    all_artists,
-                )
-                same_artists = list(same_artists)
-                if same_artists == []:
-                    all_artists.append(artist)
-    return online_songs, all_artists
+        for artist in song['track']['artists']:
+            same_artists = filter(
+                lambda existing_artist:
+                existing_artist['id'] == artist['id'],
+                all_artists,
+            )
+            same_artists = list(same_artists)
+            if same_artists == []:
+                all_artists.append(artist)
+    return all_artists
 
 
 def get_artist_info(all_artists, token):
@@ -233,7 +389,8 @@ def generate_all_dataframe(library_songs_df, wasabia_songs_df):
 
 
 def collate_genre_stats(all_songs_df):
-    genre_weights_df = pd.read_csv('data/genre_weights.csv', index_col=0)
+    genre_weights_df = pd.read_csv(
+        'workshop/data/genre_weights.csv', index_col=0)
     # grabbin it again bc we need to use it. this code can be re-used lol
     float_cols = all_songs_df.dtypes[all_songs_df.dtypes ==
                                      'float64'].index.values
@@ -292,7 +449,7 @@ def create_feature_set(df, stat_cols, genre_weights_df):
 
     final['id'] = df['id'].values
 
-    return final.reset_index(drop=True)
+    return final.reset_index(drop=True).copy()
 
 
 def summarise_playlist(playlist_df, weight_decay, not_playlist=False):
