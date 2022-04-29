@@ -201,7 +201,7 @@ class IsAuthenticated(APIView):
 def test(request):
     response = test_spotify_functionality()
 
-    # with open('personalise_test.json', 'w') as f:
+    # with open('workshop/personalise_test.json', 'w') as f:
     #     json.dump(response, f)
 
     # new_items = []
@@ -210,6 +210,7 @@ def test(request):
     #     item['track']['album'].pop('available_markets', None)
     #     new_items.append(item)
     # response.update({'items': new_items})
+
     return Response(response, status=status.HTTP_200_OK)
 # # hopefully this runs at compile time?
 # for user in User.objects.all():

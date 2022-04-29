@@ -14,19 +14,34 @@ def test_spotify_functionality():
         method='GET',
         queries={
             'offset': '0',
-            'limit': '20',
+            'limit': '50',
         },
     )
 
-    user_playlist = generate_playlist_features(
-        playlists_response['items'][0]['uri'][17:], token)
-    wasabia = generate_playlist_features(
-        playlists_response['items'][1]['uri'][17:], token)
+    # wasabia_name = 'test_wasabia_2'
+    # library_name = "Ollie's music"
 
-    return {
-        'user_playlist': user_playlist,
-        'wasabia': wasabia,
-    }
+    # wasabia = filter(
+    #     lambda playlist:
+    #     playlist['name'] == wasabia_name,
+    #     playlists_response['items'],
+    # )
+    # library = filter(
+    #     lambda playlist:
+    #     playlist['name'] == library_name,
+    #     playlists_response['items'],
+    # )
+
+    # wasabia = generate_playlist_features(
+    #     next(wasabia)['uri'][17:], token)
+    # user_playlist = generate_playlist_features(
+    #     next(library)['uri'][17:], token)
+
+    return playlists_response
+    # {
+    #     'user_playlist': user_playlist,
+    #     'wasabia': wasabia,
+    # }
 
 
 def generate_playlist_features(playlist_id, token):
