@@ -1,0 +1,822 @@
+{
+    "recommendations": {
+        "track": {
+            "3lVpXS0Pb95pWoqZPIxDC4": {
+                "id": "3lVpXS0Pb95pWoqZPIxDC4",
+                "name": "blacksoup",
+                "artists": [
+                    { "id": "4ET8VaxxZrCrS6D8aKlduv", "name": "Sun Yehoshua" }
+                ],
+                "album": {
+                    "name": "blacksoup",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b2730514b202cfa5de5df0d2842c",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e020514b202cfa5de5df0d2842c",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d000048510514b202cfa5de5df0d2842c",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-02-09"
+                }
+            },
+            "2OB4vpsEzy6mVXyXtkpFpl": {
+                "id": "2OB4vpsEzy6mVXyXtkpFpl",
+                "name": "Mobile Suit Ecco",
+                "artists": [
+                    { "id": "4vHNeMrbTBGgLyJz0lyTPI", "name": "Tekvision" }
+                ],
+                "album": {
+                    "name": "Mobile Suit Ecco",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b27394915380b6040ec377b6c8e8",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e0294915380b6040ec377b6c8e8",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d0000485194915380b6040ec377b6c8e8",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2018-05-26"
+                }
+            },
+            "3Zxwzj5bfIsi8dGb0omkH9": {
+                "id": "3Zxwzj5bfIsi8dGb0omkH9",
+                "name": "You're Cute",
+                "artists": [
+                    { "id": "0Q2Tc5yZFJpumLMc7Yz4e4", "name": "Tomppabeats" }
+                ],
+                "album": {
+                    "name": "Harbor",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273d5800f8720e1714bce93cad7",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02d5800f8720e1714bce93cad7",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851d5800f8720e1714bce93cad7",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2016-05-06"
+                }
+            },
+            "6TAb5D4XM9tzMJNkm1zDDw": {
+                "id": "6TAb5D4XM9tzMJNkm1zDDw",
+                "name": "Magic Boy",
+                "artists": [
+                    { "id": "3MATPJ9tYbcMhw5VOZrRU6", "name": "Summer Salt" }
+                ],
+                "album": {
+                    "name": "Honeyweed",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273fb5073616869d09af2224fb0",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02fb5073616869d09af2224fb0",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851fb5073616869d09af2224fb0",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-07-12"
+                }
+            },
+            "5jCG4BBry0e3VPrrd3VFvZ": {
+                "id": "5jCG4BBry0e3VPrrd3VFvZ",
+                "name": "Again",
+                "artists": [
+                    { "id": "1AUZYkS7eLmZUnBjQyJmwf", "name": "Timmies" },
+                    { "id": "1wxPItEzr7U7rGSMPqZ25r", "name": "Shiloh Dynasty" }
+                ],
+                "album": {
+                    "name": "Vivid Pictures",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273728458d0e7ee852c7688ebed",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02728458d0e7ee852c7688ebed",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851728458d0e7ee852c7688ebed",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2018-03-13"
+                }
+            },
+            "18BMwSjxO0AC0VxWG2THAR": {
+                "id": "18BMwSjxO0AC0VxWG2THAR",
+                "name": "Again",
+                "artists": [
+                    { "id": "0Q2Tc5yZFJpumLMc7Yz4e4", "name": "Tomppabeats" }
+                ],
+                "album": {
+                    "name": "Discography 2016",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273dd63b1402b42588f75e68827",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02dd63b1402b42588f75e68827",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851dd63b1402b42588f75e68827",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2016-06-02"
+                }
+            },
+            "2pulQGlFnPe9hk6p0z9XOX": {
+                "id": "2pulQGlFnPe9hk6p0z9XOX",
+                "name": "Symmetry",
+                "artists": [{ "id": "6AyATGg7mDgBlZ4N5uNog0", "name": "SYML" }],
+                "album": {
+                    "name": "Symmetry",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b27329c1d328ad02c5e8bd8fa456",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e0229c1d328ad02c5e8bd8fa456",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d0000485129c1d328ad02c5e8bd8fa456",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-10-11"
+                }
+            },
+            "4xgtWOWGwxehDX8S21di2K": {
+                "id": "4xgtWOWGwxehDX8S21di2K",
+                "name": "Shine On Top",
+                "artists": [
+                    { "id": "4ETSs924pXMzjIeD6E9b4u", "name": "Surfaces" }
+                ],
+                "album": {
+                    "name": "Where the Light Is",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b2733667dc27da7b24360d6050d0",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e023667dc27da7b24360d6050d0",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d000048513667dc27da7b24360d6050d0",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-01-06"
+                }
+            },
+            "6qzTbAFDX82BxJIBbdKPH8": {
+                "id": "6qzTbAFDX82BxJIBbdKPH8",
+                "name": "イザベラの唄",
+                "artists": [
+                    { "id": "1ts9YsGOQHW0vzUrhG4ZpH", "name": "小畑貴裕" }
+                ],
+                "album": {
+                    "name": "約束のネバーランド Season1 Original Soundtrack",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b27376ded7a688fd2fe256050e7f",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e0276ded7a688fd2fe256050e7f",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d0000485176ded7a688fd2fe256050e7f",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-12-21"
+                }
+            },
+            "4y4KG66qCAN2TTevOAEjHy": {
+                "id": "4y4KG66qCAN2TTevOAEjHy",
+                "name": "She",
+                "artists": [
+                    {
+                        "id": "4V8LLVI7PbaPR0K2TGSxFF",
+                        "name": "Tyler, The Creator"
+                    },
+                    { "id": "2h93pZq0e7k5yf4dywlkpM", "name": "Frank Ocean" }
+                ],
+                "album": {
+                    "name": "Goblin",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273042a9dff43f64e1acf918acd",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02042a9dff43f64e1acf918acd",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851042a9dff43f64e1acf918acd",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2011-05-09"
+                }
+            },
+            "4sJr8UqtqjFvlREywPHehr": {
+                "id": "4sJr8UqtqjFvlREywPHehr",
+                "name": "honestly",
+                "artists": [
+                    { "id": "5SuPIkCZe2U5TZCqYX4mcI", "name": "tajima hal" }
+                ],
+                "album": {
+                    "name": "SAILING LP",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b2732165bb9c84d24367eca55e23",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e022165bb9c84d24367eca55e23",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d000048512165bb9c84d24367eca55e23",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2016-06-16"
+                }
+            },
+            "34c4wiTY2MQTyVWS2Nuz9u": {
+                "id": "34c4wiTY2MQTyVWS2Nuz9u",
+                "name": "Emotional Crank",
+                "artists": [
+                    { "id": "0Q2Tc5yZFJpumLMc7Yz4e4", "name": "Tomppabeats" }
+                ],
+                "album": {
+                    "name": "Harbor",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273d5800f8720e1714bce93cad7",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02d5800f8720e1714bce93cad7",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851d5800f8720e1714bce93cad7",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2016-05-06"
+                }
+            },
+            "2Uy3YqGCfiZ4aIfp9mD5Lx": {
+                "id": "2Uy3YqGCfiZ4aIfp9mD5Lx",
+                "name": "A Traveler's Tale",
+                "artists": [
+                    { "id": "3yu4VilcxpQ6h35vRcemBp", "name": "Tenno" }
+                ],
+                "album": {
+                    "name": "A Traveler's Tale",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273af111cd7a8dade3b7f7792bc",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02af111cd7a8dade3b7f7792bc",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851af111cd7a8dade3b7f7792bc",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2020-05-06"
+                }
+            },
+            "0YEf9AZ5rFo5mXeCoVcEMX": {
+                "id": "0YEf9AZ5rFo5mXeCoVcEMX",
+                "name": "Urtha1",
+                "artists": [
+                    { "id": "0XUBVuE1odesNug0oKt9Me", "name": "Sugi.wa" }
+                ],
+                "album": {
+                    "name": "Urtha1",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b27341be761886bf1116a00d8b80",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e0241be761886bf1116a00d8b80",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d0000485141be761886bf1116a00d8b80",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2018-05-30"
+                }
+            },
+            "3NnINnjKVVs03xat0qLQFx": {
+                "id": "3NnINnjKVVs03xat0qLQFx",
+                "name": "GROUP B",
+                "artists": [
+                    {
+                        "id": "4V8LLVI7PbaPR0K2TGSxFF",
+                        "name": "Tyler, The Creator"
+                    }
+                ],
+                "album": {
+                    "name": "GROUP B",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b27314018bd9158a07c9a6a58f54",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e0214018bd9158a07c9a6a58f54",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d0000485114018bd9158a07c9a6a58f54",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2020-01-25"
+                }
+            },
+            "1hnvbBUpS43DRFblWKwXlZ": {
+                "id": "1hnvbBUpS43DRFblWKwXlZ",
+                "name": "Grape Choice",
+                "artists": [
+                    { "id": "5SuPIkCZe2U5TZCqYX4mcI", "name": "tajima hal" }
+                ],
+                "album": {
+                    "name": "Grape Choice",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273e1b0cc28802f24668f5fd56c",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02e1b0cc28802f24668f5fd56c",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851e1b0cc28802f24668f5fd56c",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2014-12-21"
+                }
+            },
+            "4oK49LVtlGuw8DQMMN2PxO": {
+                "id": "4oK49LVtlGuw8DQMMN2PxO",
+                "name": "Don't You Play Your Games",
+                "artists": [
+                    { "id": "6fOKLk8GmQ8xKogCRuuAwD", "name": "Teqkoi" }
+                ],
+                "album": {
+                    "name": "Don't You Play Your Games",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273198c5435cc9c7b431fa30a5d",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02198c5435cc9c7b431fa30a5d",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851198c5435cc9c7b431fa30a5d",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-03-21"
+                }
+            },
+            "0ClnfM4PI0wjlCVTJc9lP7": {
+                "id": "0ClnfM4PI0wjlCVTJc9lP7",
+                "name": "24 / 7 / 365",
+                "artists": [
+                    { "id": "4ETSs924pXMzjIeD6E9b4u", "name": "Surfaces" }
+                ],
+                "album": {
+                    "name": "Surf",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273e4a2cf3344ad96e4723ab15c",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02e4a2cf3344ad96e4723ab15c",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851e4a2cf3344ad96e4723ab15c",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2017-12-03"
+                }
+            },
+            "0kjdtcgetpiXZBlJjUD3XT": {
+                "id": "0kjdtcgetpiXZBlJjUD3XT",
+                "name": "Pure Imagination",
+                "artists": [
+                    { "id": "4ET8VaxxZrCrS6D8aKlduv", "name": "Sun Yehoshua" }
+                ],
+                "album": {
+                    "name": "Pure Imagination",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273e2e20a50a47f9e4db8aaddd6",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02e2e20a50a47f9e4db8aaddd6",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851e2e20a50a47f9e4db8aaddd6",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2018-01-24"
+                }
+            },
+            "4iF2TMFaiJwEHecDNavRU9": {
+                "id": "4iF2TMFaiJwEHecDNavRU9",
+                "name": "ugly",
+                "artists": [
+                    { "id": "1AUZYkS7eLmZUnBjQyJmwf", "name": "Timmies" },
+                    { "id": "5Te5N2LAUaxSogUGkzJ003", "name": "Nineteen95" }
+                ],
+                "album": {
+                    "name": "Ekena",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273526e961fa7e7a891d23b31ea",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02526e961fa7e7a891d23b31ea",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851526e961fa7e7a891d23b31ea",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-06-04"
+                }
+            },
+            "6pb0VvL1aLTb1p5jbRKkXJ": {
+                "id": "6pb0VvL1aLTb1p5jbRKkXJ",
+                "name": "Remember to Remember",
+                "artists": [{ "id": "67TuhPBjgVdyXrQO7y2OZ6", "name": "Sxul" }],
+                "album": {
+                    "name": "Remember to Remember",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273ffe390e62cd663458f35d3dd",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02ffe390e62cd663458f35d3dd",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851ffe390e62cd663458f35d3dd",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-07-20"
+                }
+            },
+            "6vIJRkjgdH5LfBSlHcf1DA": {
+                "id": "6vIJRkjgdH5LfBSlHcf1DA",
+                "name": "Tv Shows",
+                "artists": [{ "id": "1puLsaxX9EwudKrNBUVFe4", "name": "BOYO" }],
+                "album": {
+                    "name": "Control",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273aa775c1250dc669db0e3ea5d",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02aa775c1250dc669db0e3ea5d",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851aa775c1250dc669db0e3ea5d",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2016-08-26"
+                }
+            },
+            "1m1bQzet1KTJfwgK6oqfZt": {
+                "id": "1m1bQzet1KTJfwgK6oqfZt",
+                "name": "Sometimes",
+                "artists": [
+                    { "id": "3AHKvfq0OPpGwaZTh8ouuH", "name": "stream_error" }
+                ],
+                "album": {
+                    "name": "Sometimes",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b2735c208e16d7cce23212ccbece",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e025c208e16d7cce23212ccbece",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d000048515c208e16d7cce23212ccbece",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2018-03-13"
+                }
+            },
+            "5ri8u5RA8e4vGMyMAGXy0p": {
+                "id": "5ri8u5RA8e4vGMyMAGXy0p",
+                "name": "Stay With Me",
+                "artists": [
+                    { "id": "6fOKLk8GmQ8xKogCRuuAwD", "name": "Teqkoi" },
+                    { "id": "6ajYY1loyKdWGmGlqCUeo3", "name": "Mouse" }
+                ],
+                "album": {
+                    "name": "Stay With Me",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273955d45cde10c86f52cb60eec",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02955d45cde10c86f52cb60eec",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851955d45cde10c86f52cb60eec",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-04-03"
+                }
+            },
+            "1VIJ75lue6MNAlwHes1ONO": {
+                "id": "1VIJ75lue6MNAlwHes1ONO",
+                "name": "Crimson",
+                "artists": [{ "id": "13rwzXbLWacofU84ebRgK6", "name": "Toj" }],
+                "album": {
+                    "name": "Do Nothing Club",
+                    "images": [
+                        {
+                            "height": 640,
+                            "url": "https://i.scdn.co/image/ab67616d0000b273d1fe9a370b6aab1477e63a26",
+                            "width": 640
+                        },
+                        {
+                            "height": 300,
+                            "url": "https://i.scdn.co/image/ab67616d00001e02d1fe9a370b6aab1477e63a26",
+                            "width": 300
+                        },
+                        {
+                            "height": 64,
+                            "url": "https://i.scdn.co/image/ab67616d00004851d1fe9a370b6aab1477e63a26",
+                            "width": 64
+                        }
+                    ],
+                    "release_date": "2019-03-23"
+                }
+            }
+        },
+        "genres": {
+            "3lVpXS0Pb95pWoqZPIxDC4": [],
+            "2OB4vpsEzy6mVXyXtkpFpl": [],
+            "3Zxwzj5bfIsi8dGb0omkH9": [
+                "chillhop",
+                "japanese chillhop",
+                "lo-fi beats"
+            ],
+            "6TAb5D4XM9tzMJNkm1zDDw": ["indie garage rock"],
+            "5jCG4BBry0e3VPrrd3VFvZ": ["lo-fi chill", "sad lo-fi", "sad rap"],
+            "18BMwSjxO0AC0VxWG2THAR": [
+                "chillhop",
+                "japanese chillhop",
+                "lo-fi beats"
+            ],
+            "2pulQGlFnPe9hk6p0z9XOX": ["pop"],
+            "4xgtWOWGwxehDX8S21di2K": ["bedroom soul", "pop"],
+            "6qzTbAFDX82BxJIBbdKPH8": ["anime score"],
+            "4y4KG66qCAN2TTevOAEjHy": [
+                "hip hop",
+                "rap",
+                "alternative r&b",
+                "lgbtq+ hip hop",
+                "neo soul",
+                "pop"
+            ],
+            "4sJr8UqtqjFvlREywPHehr": [
+                "chillhop",
+                "japanese beats",
+                "jazz boom bap",
+                "lo-fi beats"
+            ],
+            "34c4wiTY2MQTyVWS2Nuz9u": [
+                "chillhop",
+                "japanese chillhop",
+                "lo-fi beats"
+            ],
+            "2Uy3YqGCfiZ4aIfp9mD5Lx": ["japanese chillhop"],
+            "0YEf9AZ5rFo5mXeCoVcEMX": ["chillhop", "lo-fi beats"],
+            "3NnINnjKVVs03xat0qLQFx": ["hip hop", "rap"],
+            "1hnvbBUpS43DRFblWKwXlZ": [
+                "chillhop",
+                "japanese beats",
+                "jazz boom bap",
+                "lo-fi beats"
+            ],
+            "4oK49LVtlGuw8DQMMN2PxO": ["lo-fi chill", "sad lo-fi"],
+            "0ClnfM4PI0wjlCVTJc9lP7": ["bedroom soul", "pop"],
+            "0kjdtcgetpiXZBlJjUD3XT": [],
+            "4iF2TMFaiJwEHecDNavRU9": ["lo-fi chill", "sad lo-fi"],
+            "6pb0VvL1aLTb1p5jbRKkXJ": ["focus beats"],
+            "6vIJRkjgdH5LfBSlHcf1DA": ["indie garage rock"],
+            "1m1bQzet1KTJfwgK6oqfZt": ["lo-fi beats"],
+            "5ri8u5RA8e4vGMyMAGXy0p": [
+                "lo-fi chill",
+                "sad lo-fi",
+                "classic garage rock"
+            ],
+            "1VIJ75lue6MNAlwHes1ONO": []
+        },
+        "name": {
+            "3lVpXS0Pb95pWoqZPIxDC4": "blacksoup",
+            "2OB4vpsEzy6mVXyXtkpFpl": "Mobile Suit Ecco",
+            "3Zxwzj5bfIsi8dGb0omkH9": "You're Cute",
+            "6TAb5D4XM9tzMJNkm1zDDw": "Magic Boy",
+            "5jCG4BBry0e3VPrrd3VFvZ": "Again",
+            "18BMwSjxO0AC0VxWG2THAR": "Again",
+            "2pulQGlFnPe9hk6p0z9XOX": "Symmetry",
+            "4xgtWOWGwxehDX8S21di2K": "Shine On Top",
+            "6qzTbAFDX82BxJIBbdKPH8": "イザベラの唄",
+            "4y4KG66qCAN2TTevOAEjHy": "She",
+            "4sJr8UqtqjFvlREywPHehr": "honestly",
+            "34c4wiTY2MQTyVWS2Nuz9u": "Emotional Crank",
+            "2Uy3YqGCfiZ4aIfp9mD5Lx": "A Traveler's Tale",
+            "0YEf9AZ5rFo5mXeCoVcEMX": "Urtha1",
+            "3NnINnjKVVs03xat0qLQFx": "GROUP B",
+            "1hnvbBUpS43DRFblWKwXlZ": "Grape Choice",
+            "4oK49LVtlGuw8DQMMN2PxO": "Don't You Play Your Games",
+            "0ClnfM4PI0wjlCVTJc9lP7": "24 / 7 / 365",
+            "0kjdtcgetpiXZBlJjUD3XT": "Pure Imagination",
+            "4iF2TMFaiJwEHecDNavRU9": "ugly",
+            "6pb0VvL1aLTb1p5jbRKkXJ": "Remember to Remember",
+            "6vIJRkjgdH5LfBSlHcf1DA": "Tv Shows",
+            "1m1bQzet1KTJfwgK6oqfZt": "Sometimes",
+            "5ri8u5RA8e4vGMyMAGXy0p": "Stay With Me",
+            "1VIJ75lue6MNAlwHes1ONO": "Crimson"
+        },
+        "sim": {
+            "3lVpXS0Pb95pWoqZPIxDC4": 0.6288044186323021,
+            "2OB4vpsEzy6mVXyXtkpFpl": 0.6013867385454451,
+            "3Zxwzj5bfIsi8dGb0omkH9": 0.5695089631907253,
+            "6TAb5D4XM9tzMJNkm1zDDw": 0.5625239331090447,
+            "5jCG4BBry0e3VPrrd3VFvZ": 0.5622934470381266,
+            "18BMwSjxO0AC0VxWG2THAR": 0.5599514682030118,
+            "2pulQGlFnPe9hk6p0z9XOX": 0.5256696744169724,
+            "4xgtWOWGwxehDX8S21di2K": 0.5255912317204894,
+            "6qzTbAFDX82BxJIBbdKPH8": 0.5255379744533862,
+            "4y4KG66qCAN2TTevOAEjHy": 0.4861093666418999,
+            "4sJr8UqtqjFvlREywPHehr": 0.47308192799481197,
+            "34c4wiTY2MQTyVWS2Nuz9u": 0.46869234157676265,
+            "2Uy3YqGCfiZ4aIfp9mD5Lx": 0.4677995186190248,
+            "0YEf9AZ5rFo5mXeCoVcEMX": 0.4599558397257364,
+            "3NnINnjKVVs03xat0qLQFx": 0.4573532317295217,
+            "1hnvbBUpS43DRFblWKwXlZ": 0.44554612756226675,
+            "4oK49LVtlGuw8DQMMN2PxO": 0.44345305497665655,
+            "0ClnfM4PI0wjlCVTJc9lP7": 0.4276358651327761,
+            "0kjdtcgetpiXZBlJjUD3XT": 0.36672560265013154,
+            "4iF2TMFaiJwEHecDNavRU9": 0.3514111744107169,
+            "6pb0VvL1aLTb1p5jbRKkXJ": 0.29327805218722347,
+            "6vIJRkjgdH5LfBSlHcf1DA": 0.2411606466285546,
+            "1m1bQzet1KTJfwgK6oqfZt": 0.2407029536508591,
+            "5ri8u5RA8e4vGMyMAGXy0p": 0.23412678889820246,
+            "1VIJ75lue6MNAlwHes1ONO": 0.17613647629806642
+        }
+    }
+}

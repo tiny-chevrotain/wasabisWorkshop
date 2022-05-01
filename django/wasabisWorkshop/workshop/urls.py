@@ -43,5 +43,5 @@ urlpatterns = [
         name='spotify_create_token',
     ),
 
-    path('test', views.test, name='test'),
+    # path('test', views.test, name='test'),
 ]

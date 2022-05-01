@@ -1,5 +1,5 @@
 import datetime
-from .test_utils import get_key, group_input, setup_spotify
+from .test_utils import get_id_array, get_key, group_input, setup_spotify
 from .utils import execute_spotify_api_request
 import json
 from collections import Counter
@@ -12,42 +12,10 @@ pd.options.mode.chained_assignment = None
 
 # https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge
 
-
-def test_spotify_functionality():
-    token = setup_spotify()
-    playlists_response = execute_spotify_api_request(
-        user_auth_token=token,
-        endpoint='me/playlists',
-        method='GET',
-        queries={
-            'offset': '0',
-            'limit': '20',
-        },
-    )
-
-    playlist_id = playlists_response['items'][3]['uri'][17:]
-    # all_songs = get_playlist_songs(playlist_id, token)
-    # all_songs, all_artists = separate_artists(all_songs)
-    # all_artist_genres = get_artist_info(all_artists, token)
-    # all_songs = apply_genres(all_songs, all_artist_genres)
-
-    return {
-        # 'items': all_songs,
-        # 'artists': all_artists,
-        'playlists': playlists_response
-    }
-
-    # # Opening JSON file
-    # f = open('workshop/test_song_properties.json', encoding='cp850')
-
-    # # returns JSON object as
-    # # a dictionary
-    # all_song_features_dict = json.load(f)
-
 # ----------- for debugging only:
 
 
-def get_wasabia_ids(playlist_id, token):
+def get_wasabia_ids_debug(playlist_id, token):
     count = 0
     finished = False
     all_songs = []
@@ -84,6 +52,12 @@ def get_wasabia_ids(playlist_id, token):
     return song_ids
 
 # ----------- grab data:
+
+
+def get_wasabia_song_ids(wasabia):
+    songs = wasabia.songs.all()
+    song_ids = songs.values('id')
+    return get_id_array(song_ids, id='id')
 
 
 def format_tracks(bad_format_tracks):
@@ -147,6 +121,11 @@ def get_all_playlists(token):
         all_playlists += playlists_response['items']
         if (playlists_response['next'] == None):
             finished = True
+    return all_playlists
+
+
+def get_all_playlist_ids(token):
+    all_playlists = get_all_playlists(token)
     playlist_ids = []
     for playlist in all_playlists:
         playlist_ids.append(playlist['uri'][17:])
@@ -252,7 +231,7 @@ def get_saved_songs(token):
 
 
 def get_library_songs(token):
-    playlist_ids = get_all_playlists(token)
+    playlist_ids = get_all_playlist_ids(token)
     all_songs = []
     for playlist_id in playlist_ids:
         all_songs += get_playlist_songs(playlist_id, token)

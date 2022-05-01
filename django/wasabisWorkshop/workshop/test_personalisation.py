@@ -1,22 +1,20 @@
-from .personalisation_utils import apply_genres, collate_genre_stats, create_feature_set, find_similarity, generate_all_dataframe, generate_dataframes, get_artist_info, get_features, get_library_songs, get_playlist_songs, get_saved_songs, get_tracks, get_wasabia_ids, remove_duplicate_songs, remove_local_songs, separate_artists
-from .test_utils import get_key, group_input, setup_spotify
-from .utils import execute_spotify_api_request, organise_queries
-import json
+from .personalisation_utils import apply_genres, collate_genre_stats, create_feature_set, find_similarity, generate_all_dataframe, generate_dataframes, get_artist_info, get_features, get_library_songs, get_tracks, get_wasabia_song_ids, remove_duplicate_songs, remove_local_songs, separate_artists
+from .test_utils import setup_spotify
 import pandas as pd
-import numpy as np
-import os
 pd.options.mode.chained_assignment = None
 
 # https://www.aicrowd.com/challenges/spotify-million-playlist-dataset-challenge
+
+# https://www.youtube.com/watch?v=BbPswIqn2VI <- for future development, consider progress bar w/ celery
 
 
 def test_spotify_functionality():
     token = setup_spotify()
     # id is for debug, remove to gather from database in future:
-    return generate_playlist_features('1tSDFBwuUGqGhw61KuYETZ', token)
+    return personalise('1tSDFBwuUGqGhw61KuYETZ', token)
 
 
-def generate_playlist_features(playlist_id, token):
+def personalise(wasabia, token):
     print("Getting library")
     user_library = get_library_songs(token)
     print("Removing duplicates")
@@ -24,13 +22,11 @@ def generate_playlist_features(playlist_id, token):
     print("Removing local songs")
     user_library = remove_local_songs(user_library)
 
-    # later get this from database:
     print("Getting wasabia ids")
-    wasabia_ids = get_wasabia_ids(playlist_id, token)
+    wasabia_song_ids = get_wasabia_song_ids(wasabia)
+    print(wasabia_song_ids)
     print("Getting wasabia tracks")
-    wasabia = get_tracks(wasabia_ids, token)
-    print("Removing duplicates")
-    wasabia = remove_duplicate_songs(wasabia)
+    wasabia = get_tracks(wasabia_song_ids, token)
 
     cuttoff_point = len(user_library)
     all_songs = user_library + wasabia  # do this to make less requests for artists
