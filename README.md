@@ -37,15 +37,6 @@
 
   <p align="center">
     Playlist collaboration: how can mass co-operation help us find more music?
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/othneildrew/Best-README-Template">View Demo</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/othneildrew/Best-README-Template/issues">Request Feature</a>
   </p>
 </div>
 
@@ -84,7 +75,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Making and discovering music together has always been part of our history as humans, and especially today as music is shared between online communities. However, existing systems are rudimentary at best; they’re not only unrepresentative but also make it struggle to offer new music that is more suited for the listener. This report shows how developing a web application that tackles this problem in a different way can help remedy the key issues faced. The principles of this application are that users will be able to upvote or downvote music on specific collections and have the option to personalise these collections to be presented with music that they will like the most.  Cosine similarity was used to draw similarities between user’s libraries and the songs in the collections. User evaluation showed that while the voting system wasn’t as effective in our use-case, most agreed that with a larger subset of users the application would work much better, and even in this use case they felt they could collaborate effectively, and far more than most existing solutions. In general the recommendations were found to have average approval, and overall this project has shown that collaborative voting systems for music discovery is more effective with more users. 
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
