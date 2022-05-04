@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:myapp/api_functions.dart';
+import 'package:myapp/create_wasabia_page.dart';
 import 'package:myapp/load_page.dart';
 import 'package:myapp/global_variables.dart';
 import 'package:myapp/wasabia_components.dart';
@@ -33,19 +34,43 @@ class WasabiaListPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: color_4,
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: color_4,
+                  ),
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  onPressed: () {
+                    logout(context);
+                  },
                 ),
-                child: Text(
-                  'Logout',
-                  style: TextStyle(fontSize: 20.0),
+              ),
+            ),
+            Center(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 8.0, 8.0, 8.0),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: color_4,
+                  ),
+                  child: Text(
+                    'Create new wasabia',
+                    style: TextStyle(fontSize: 20.0),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CreateWasabiaPage(),
+                      ),
+                    );
+                  },
                 ),
-                onPressed: () {
-                  logout(context);
-                },
               ),
             ),
             ListView.builder(
@@ -69,9 +94,8 @@ class WasabiaListPage extends StatelessWidget {
                             fitWeb: BoxFitWeb.cover,
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => WasabiaPage(
+                                  builder: (context) => LoadWasabiaPage(
                                         id: wasabias[index].id,
-                                        songs: songs,
                                       )));
                             },
                           ),

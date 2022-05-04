@@ -25,22 +25,77 @@ urlpatterns = [
     path('token-login/', views.token_login, name='token_login'),
     path('signup/', views.signup, name='signup'),
     path('secret-signup/', views.guest_signup, name='secret_login'),
-
-    # other stuff:
     path(
         'is-authenticated/',
         views.IsAuthenticated.as_view(),
         name='is_authenticated',
     ),
     path(
+        'spotify-create-token/',
+        views.spotify_create_token,
+        name='spotify_create_token',
+    ),
+
+    # system API:
+    path(
         'test-spotify-api/',
         views.SpotifyTest.as_view(),
         name='test_spotify_api',
     ),
     path(
-        'spotify-create-token/',
-        views.spotify_create_token,
-        name='spotify_create_token',
+        'get-recommendations/',
+        views.get_recommendations,
+        name='get_recommendations',
+    ),
+    path(
+        'get-wasabia-list/',
+        views.get_wasabia_list,
+        name='get_wasabia_list',
+    ),
+    path(
+        'create-wasabia/',
+        views.create_wasabia,
+        name='create_wasabia',
+    ),
+    path(
+        'get-wasabia/',
+        views.get_wasabia,
+        name='get_wasabia',
+    ),
+    path(
+        'add-songs/',
+        views.add_songs,
+        name='add_songs',
+    ),
+    path(
+        'search-spotify/',
+        views.search_spotify,
+        name='search_spotify',
+    ),
+    path(
+        'get-playlists/',
+        views.get_playlists,
+        name='get_playlists',
+    ),
+    path(
+        'get-user-library/',
+        views.get_user_library,
+        name='get_user_library',
+    ),
+    path(
+        'get-user-saved-songs/',
+        views.get_user_saved_songs,
+        name='get_user_saved_songs',
+    ),
+    path(
+        'get-user-playlist-songs/',
+        views.get_user_playlist_songs,
+        name='get_user_playlist_songs',
+    ),
+    path(
+        'song-vote/',
+        views.song_vote,
+        name='song_vote',
     ),
 
     # path('test', views.test, name='test'),

@@ -56,9 +56,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=True)
-
     USERNAME_FIELD = 'email'
-
     objects = UserManager()
 
     def __str__(self):
@@ -83,12 +81,10 @@ class SpotifyToken(models.Model):
 class Wasabia(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=1000)
-
     songs = models.ManyToManyField(
         'Song',
         related_name='wasabias',
     )
-
     user = models.ForeignKey(
         User,
         related_name='wasabias',
@@ -98,6 +94,15 @@ class Wasabia(models.Model):
     @property
     def votes(self):
         return Score.objects.filter(wasabia=self).aggregate(models.Sum('votes_total'))
+
+    @property
+    def song_count(self):
+        print(Song.objects.filter(wasabias=self).count())
+        return self.songs.all().count()
+
+    @property
+    def image(self):
+        return self.songs.all().first().image_640_url
 
 
 class Artist(models.Model):
@@ -111,7 +116,6 @@ class Song(models.Model):
     image_640_url = models.CharField(max_length=64)
     image_300_url = models.CharField(max_length=64)
     image_64_url = models.CharField(max_length=64)
-
     artists = models.ManyToManyField(
         Artist,
         related_name='songs',

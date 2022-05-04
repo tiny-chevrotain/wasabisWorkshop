@@ -15,11 +15,11 @@ final String root_url = "127.0.0.1:8000";
 var client = http.Client();
 
 final String error_image =
-    'https://i.pinimg.com/564x/69/d1/aa/69d1aadc446c35120da7e9162f33bbc0.jpg';
+    'https://i.pinimg.com/564x/56/a4/07/56a40761f8c9e2e80dada8d6cb0b6d33.jpg';
 // final Color color_6 = Color(0xECECEC);
 
 final List<String> images = [
-  "https://i.pinimg.com/564x/dd/4a/e9/dd4ae99334a4fd715a61044b9933fcab.jpg",
+  "https://i.scdn.co/image/ab67616d0000b2730259ab06988965b03eae686a",
   "https://i.pinimg.com/564x/a5/d9/2a/a5d92a760dadaa43a59704402abb2ae7.jpg",
   "https://i.pinimg.com/564x/d6/2c/d0/d62cd0f76da332888fdd7061158d55e6.jpg",
   "https://i.pinimg.com/564x/ce/31/ae/ce31ae3810b9ab4085353897a1c2c976.jpg",
@@ -30,30 +30,30 @@ final List<String> images = [
 ];
 var rand = Random();
 
-final wasabias_json = [
+final _wasabias_json = [
   {
-    'id': "",
+    'id': 0,
     'name': "Jazzy songs",
     'image': images[rand.nextInt(images.length)],
     'votes': 9999,
     'songs': 9999,
   },
   {
-    'id': "",
+    'id': 0,
     'name': "DnD battle music",
     'image': images[rand.nextInt(images.length)],
     'votes': 9999,
     'songs': 9999,
   },
   {
-    'id': "",
+    'id': 0,
     'name': "Songs for a 19th century villain scheming against his enemies",
     'image': images[rand.nextInt(images.length)],
     'votes': 9999,
     'songs': 9999,
   },
   {
-    'id': "",
+    'id': 0,
     'name': "Rainy days",
     'image': images[rand.nextInt(images.length)],
     'votes': 9999,
@@ -61,9 +61,9 @@ final wasabias_json = [
   },
 ];
 
-List<Wasabia> wasabia_array = wasabias_json
+List<Wasabia> wasabia_array = _wasabias_json
     .map((wasabia) => new Wasabia(
-          id: wasabia['id'] as String,
+          id: wasabia['id'] as int,
           name: wasabia['name'] as String,
           image: wasabia['image'] as String,
           votes: wasabia['votes'] as int,
@@ -102,21 +102,21 @@ final songs_json = [
   },
   {
     'id': "",
-    'name': "Turn out the Lamplight",
+    'name': "Turn out the Lamplight aaaaaaa",
     'artist': "George Benson",
     'votes': 9999,
     'user_vote': 0,
   },
 ];
 
-List<Song> songs = songs_json
-    .map((song) => new Song(
-          id: song['id'] as String,
-          name: song['name'] as String,
-          artist: song['artist'] as String,
-          votes: song['votes'] as int,
-          user_vote: song['user_vote'] as int,
-        ))
-    .toList();
+// List<Song> songs = songs_json
+//     .map((song) => new Song(
+//           id: song['id'] as String,
+//           name: song['name'] as String,
+//           artist: song['artist'] as String,
+//           votes: song['votes'] as int,
+//           user_vote: song['user_vote'] as int,
+//         ))
+//     .toList();
 
 Credentials credentials = new Credentials();

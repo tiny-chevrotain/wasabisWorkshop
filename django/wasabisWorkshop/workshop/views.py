@@ -8,11 +8,11 @@ from .personalisation_utils import format_songs, get_all_playlists, get_playlist
 
 from .test_utils import format_playlists, format_tracks, get_id_array, get_key, get_songs_with_artists, get_to_make, make_missing_scores, make_missing_songs, split_id_array
 
-from .serializers import ScoreSerializer, UserSerializer, WasabiaSerializer
+from .serializers import DownvoteSerializer, ScoreSerializer, UpvoteSerializer, UserSerializer, WasabiaInfoSerializer, WasabiaSerializer
 
 from .test_personalisation import personalise, test_spotify_functionality
 
-from .models import Artist, Score, Song, User, Wasabia
+from .models import Artist, Downvote, Score, Song, Upvote, User, Wasabia
 
 from .forms import LoginForm, SignupForm
 from .credentials import REDIRECT_URI, CLIENT_ID, CLIENT_SECRET
@@ -141,7 +141,6 @@ def login(request):
 
 @api_view(('POST',))
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def token_login(request):
     return Response({'status': 'logged_in'}, status=status.HTTP_200_OK)
 
@@ -161,7 +160,6 @@ class SpotifyTest(APIView):
 
 @api_view(('POST',))
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def spotify_create_token(request):
     user_token = request.headers['Authorization'][6:]
     spotify_code = request.POST['code']
@@ -206,30 +204,31 @@ class IsAuthenticated(APIView):
 
 @api_view(('GET',))
 @ authentication_classes((TokenAuthentication,))
-@ permission_classes((IsAuthenticated,))
 def get_recommendations(request):
     user_token = request.headers['Authorization'][6:]
     body = request.GET
-    wasabia_id = body['wasabia_id']
+    wasabia_id = int(body['wasabia_id'])
     wasabia = Wasabia.objects.get(id=wasabia_id)
     recommendations = personalise(wasabia, user_token)
+    print(recommendations)
     return Response({'recommendations': recommendations}, status=status.HTTP_200_OK)
 
 
-@ api_view(('GET',))
-@ authentication_classes((TokenAuthentication,))
-@ permission_classes((IsAuthenticated,))
+@api_view(('GET',))
+@authentication_classes((TokenAuthentication,))
 def get_wasabia_list(request):
     all_wasabias = Wasabia.objects.all()
-    all_wasabias_serialized = WasabiaSerializer(all_wasabias, many=True)
+    all_wasabias_serialized = WasabiaInfoSerializer(all_wasabias, many=True)
     all_wasabias_data = all_wasabias_serialized.data
-    all_wasabias_data = sorted(all_wasabias_data, key=lambda d: d['votes'])
+    print(all_wasabias_data)
+    all_wasabias_data = sorted(
+        all_wasabias_data, key=lambda d:
+        d['votes']['votes_total__sum'] if d['votes']['votes_total__sum'] != None else 0, reverse=True)
     return Response({'wasabias': all_wasabias_data}, status=status.HTTP_200_OK)
 
 
 @ api_view(('POST',))
 @ authentication_classes((TokenAuthentication,))
-@ permission_classes((IsAuthenticated,))
 def create_wasabia(request):
     body = request.POST
     user_token = request.headers['Authorization'][6:]
@@ -243,19 +242,36 @@ def create_wasabia(request):
 
 @ api_view(('GET',))
 @ authentication_classes((TokenAuthentication,))
-@ permission_classes((IsAuthenticated,))
 def get_wasabia(request):
     body = request.GET
-    wasabia = Wasabia.objects.get(id=body.get('id', ''))
+    user_token = request.headers['Authorization'][6:]
+    user = Token.objects.get(key=user_token).user
+    wasabia_id = body.get('id', '')
+    wasabia = Wasabia.objects.get(id=wasabia_id)
+    user_upvotes = Upvote.objects.filter(
+        Q(user=user) & Q(score__wasabia=wasabia))
+    user_downvotes = Downvote.objects.filter(
+        Q(user=user) & Q(score__wasabia=wasabia))
     wasabia_serialized = WasabiaSerializer(wasabia)
-    return Response({'wasabia': wasabia_serialized.data}, status=status.HTTP_200_OK)
+    user_upvotes_serialized = UpvoteSerializer(user_upvotes, many=True)
+    user_downvotes_serialized = DownvoteSerializer(user_downvotes, many=True)
+    wasabia_dict = json.loads(json.dumps(wasabia_serialized.data))
+    wasabia_dict['scores'] = sorted(
+        wasabia_dict['scores'], key=lambda d: int(d['votes_total']), reverse=True)
+    return Response(
+        {
+            'wasabia': wasabia_dict,
+            'upvotes': user_upvotes_serialized.data,
+            'downvotes': user_downvotes_serialized.data,
+        },
+        status=status.HTTP_200_OK,
+    )
 
 
 @ api_view(('PUT',))
 @ authentication_classes((TokenAuthentication,))
-@ permission_classes((IsAuthenticated,))
 def add_songs(request):
-    body = request.PUT
+    body = json.loads(request.body)
     songs_dict = body['songs']
     wasabia_id = body['wasabia_id']
     user_token = request.headers['Authorization'][6:]
@@ -289,14 +305,11 @@ def add_songs(request):
             songs_of_scores_to_make, wasabia)
     for score in existing_scores:
         score.upvote(user)
-    wasabia = Wasabia.objects.get(id=wasabia_id)  # get updated wasabia
-    wasabia_serialized = WasabiaSerializer(wasabia)
-    return Response({'wasabia': wasabia_serialized.data}, status=status.HTTP_200_OK)
+    return Response({'status': 'added'}, status=status.HTTP_200_OK)
 
 
 @api_view(('GET',))
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def search_spotify(request):
     body = request.GET
     search = body.get('search', '')
@@ -326,7 +339,6 @@ def search_spotify(request):
 
 @api_view(('GET',))
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def get_playlists(request):
     playlists_formatted = []
     user_token = request.headers['Authorization'][6:]
@@ -341,7 +353,6 @@ def get_playlists(request):
 
 @api_view(('GET',))
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def get_user_library(request):
     body = request.GET
     existing_playlist_ids = body.get('playlist_ids', '')
@@ -373,7 +384,6 @@ def get_user_library(request):
 
 @api_view(('GET',))
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def get_user_saved_songs(request):
     saved_songs = []
     user_token = request.headers['Authorization'][6:]
@@ -382,13 +392,13 @@ def get_user_saved_songs(request):
         saved_songs = format_songs(saved_songs)
     else:
         # catch that
+        print("error")
         pass
     return Response({'saved_songs': saved_songs}, status=status.HTTP_200_OK)
 
 
 @api_view(('GET',))
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
 def get_user_playlist_songs(request):
     user_token = request.headers['Authorization'][6:]
     body = request.GET
@@ -410,14 +420,13 @@ def get_user_playlist_songs(request):
 
 @api_view(('PUT',))
 @authentication_classes((TokenAuthentication,))
-@permission_classes((IsAuthenticated,))
-def get_user_playlist_songs(request):
+def song_vote(request):
     user_token = request.headers['Authorization'][6:]
     user = Token.objects.get(key=user_token).user
-    body = request.PUT
-    vote = body['vote']
+    body = request.POST
+    vote = int(body['vote'])
     song_id = body['song_id']
-    wasabia_id = body['wasabia_id']
+    wasabia_id = int(body['wasabia_id'])
     score = Score.objects.get(Q(wasabia__id=wasabia_id) & Q(song__id=song_id))
     score.vote(user, vote)
     score_serialized = ScoreSerializer(score)

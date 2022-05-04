@@ -25,13 +25,12 @@ class MyApp extends StatelessWidget {
       routes: {
         '/login': (context) => LoadLoginSignupPage(),
         '/discover': (context) => LoadDiscoverPage(),
+        // '/add-songs': (context) => LoadSongs(),
         '/': (context) => HomePage(),
       },
       onGenerateRoute: (settings) {
         // If you push the PassArguments route
         if (settings.name != null) {
-          print(settings.name);
-          //in your example: settings.name = "/post?id=123"
           final settingsUri = Uri.parse(settings.name!);
           if (settingsUri.path == '/spotify-auth') {
             final _code = settingsUri.queryParameters['code'];

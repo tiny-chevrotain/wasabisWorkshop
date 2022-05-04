@@ -56,4 +56,10 @@ def personalise(wasabia, token):
     suggestions_dict = wasabia_df.drop(['added_at', 'is_local', 'release_date', 'danceability', 'energy', 'key', 'loudness', 'mode',
                                        'speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', 'duration_ms', 'time_signature'], axis=1).to_dict()
 
-    return suggestions_dict
+    song_ids = list(suggestions_dict['track'].keys())
+    songs_formatted = []
+    for id in song_ids:
+        current_track = suggestions_dict['track'][id]
+        current_track['sim'] = suggestions_dict['sim'][id]
+        songs_formatted.append(current_track)
+    return songs_formatted

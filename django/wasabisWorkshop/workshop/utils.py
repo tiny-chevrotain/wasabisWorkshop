@@ -21,12 +21,25 @@ from requests import Request
 BASE_URL = "https://api.spotify.com/v1/"
 
 
-def get_token(user_auth_token):
-    tokens = SpotifyToken.objects.filter(user_auth_token=user_auth_token)
-    if tokens.exists():
-        return tokens[0]
-    else:
-        return None
+def is_spotify_authenticated(user_auth_token):
+    token = get_token(user_auth_token)
+    if token:
+        expiry = token.expires_in
+        if expiry <= timezone.now():
+            refresh_spotify_token(user_auth_token)
+        return True
+    return False
+
+
+def get_spotify_auth_url():
+    print("We are authorising, nothing fancy and no tokens set")
+    scopes = 'user-library-modify user-library-read app-remote-control playlist-modify-public'
+    return Request('GET', 'https://accounts.spotify.com/authorize', params={
+        'scope': scopes,
+        'response_type': 'code',
+        'redirect_uri': REDIRECT_URI,
+        'client_id': CLIENT_ID,
+    }).prepare().url
 
 
 def update_or_create_token(user_auth_token, access_token, token_type, expires_in, refresh_token):
@@ -46,14 +59,43 @@ def update_or_create_token(user_auth_token, access_token, token_type, expires_in
         token.save()
 
 
-def is_spotify_authenticated(user_auth_token):
-    token = get_token(user_auth_token)
-    if token:
-        expiry = token.expires_in
-        if expiry <= timezone.now():
-            refresh_spotify_token(user_auth_token)
-        return True
-    return False
+def execute_spotify_api_request(user_auth_token, endpoint, method='GET', extra_header={}, queries={}):
+    if is_spotify_authenticated(user_auth_token):
+        token = get_token(user_auth_token)
+        # print({
+        #     "user_auth_token": user_auth_token,
+        #     "endpoint": endpoint,
+        #     "method": method,
+        #     "token": token.access_token,
+        #     "URL": BASE_URL + endpoint,
+        # })
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + token.access_token
+        }
+        headers = headers | extra_header
+
+        match method:
+            case 'GET':
+                response = get(BASE_URL + endpoint,
+                               headers=headers, params=organise_queries(queries))
+                # print(response.request.url)
+            case 'POST':
+                response = post(BASE_URL + endpoint, headers=headers)
+            case 'PUT':
+                response = put(BASE_URL + endpoint, headers=headers)
+
+        return response.json()
+    return {'Error': 'Issue with request'}
+
+
+def get_token(user_auth_token):
+    tokens = SpotifyToken.objects.filter(user_auth_token=user_auth_token)
+    if tokens.exists():
+        return tokens[0]
+    else:
+        return None
 
 
 def refresh_spotify_token(user_auth_token):
@@ -72,37 +114,6 @@ def refresh_spotify_token(user_auth_token):
 
     update_or_create_token(
         user_auth_token, access_token, token_type, expires_in, refresh_token)
-
-
-def execute_spotify_api_request(user_auth_token, endpoint, method='GET', extra_header={}, queries={}):
-    token = get_token(user_auth_token)
-    # print({
-    #     "user_auth_token": user_auth_token,
-    #     "endpoint": endpoint,
-    #     "method": method,
-    #     "token": token.access_token,
-    #     "URL": BASE_URL + endpoint,
-    # })
-    headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + token.access_token
-    }
-    headers = headers | extra_header
-
-    match method:
-        case 'GET':
-            response = get(BASE_URL + endpoint,
-                           headers=headers, params=organise_queries(queries))
-            # print(response.request.url)
-        case 'POST':
-            response = post(BASE_URL + endpoint, headers=headers)
-        case 'PUT':
-            response = put(BASE_URL + endpoint, headers=headers)
-
-    return response.json()
-    # except:
-    #     return {'Error': 'Issue with request'}
 
 
 def authenticate_user(email="", password="", signup=False):
@@ -125,17 +136,6 @@ def authenticate_user(email="", password="", signup=False):
     else:
         # failed authentication
         return Response({'status': 'invalid_credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
-def get_spotify_auth_url():
-    print("We are authorising, nothing fancy and no tokens set")
-    scopes = 'user-library-modify user-library-read app-remote-control playlist-modify-public'
-    return Request('GET', 'https://accounts.spotify.com/authorize', params={
-        'scope': scopes,
-        'response_type': 'code',
-        'redirect_uri': REDIRECT_URI,
-        'client_id': CLIENT_ID,
-    }).prepare().url
 
 
 def organise_queries(queries):

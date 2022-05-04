@@ -101,7 +101,7 @@ def make_missing_songs(songs_to_make):
 
 def make_missing_scores(songs_of_scores_to_make, wasabia):
     # add to wasabia
-    wasabia.songs.set(songs_of_scores_to_make)
+    wasabia.songs.add(*songs_of_scores_to_make)
     # create scores
     return Score.objects.bulk_create(
         [
